@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dynamic To-Do List</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Main Application Container -->
+    <main class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+
+            <h1>My To-Do List</h1>
+
+            <button
+                id="themeToggle"
+                type="button"
+            >
+                🌙 Dark Mode
+            </button>
+
+        </header>
+
+
+        <!-- Add Task Section -->
+        <section
+            class="task-form-section"
+            aria-label="Add a new task"
+        >
+
+            <form id="taskForm">
+
+                <label
+                    for="taskInput"
+                    class="sr-only"
+                >
+                    Enter a new task
+                </label>
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter a new task..."
+                >
+
+                <button type="submit">
+                    Add Task
+                </button>
+
+            </form>
+
+            <!-- Validation Message -->
+            <p
+                id="errorMessage"
+                aria-live="polite"
+            ></p>
+
+        </section>
+
+
+        <!-- Task Statistics -->
+        <section
+            class="statistics-section"
+            aria-label="Task statistics"
+        >
+
+            <div class="task-stats">
+
+                <article class="stat-box">
+
+                    <span>Total</span>
+
+                    <strong id="totalTasks">
+                        0
+                    </strong>
+
+                </article>
+
+
+                <article class="stat-box">
+
+                    <span>Completed</span>
+
+                    <strong id="completedTasks">
+                        0
+                    </strong>
+
+                </article>
+
+
+                <article class="stat-box">
+
+                    <span>Pending</span>
+
+                    <strong id="pendingTasks">
+                        0
+                    </strong>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Filter Section -->
+        <section
+            class="filter-section"
+            aria-label="Filter tasks"
+        >
+
+            <div class="filters">
+
+                <button
+                    class="filter-btn active"
+                    data-filter="all"
+                    type="button"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="pending"
+                    type="button"
+                >
+                    Pending
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="completed"
+                    type="button"
+                >
+                    Completed
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Task List Section -->
+        <section
+            class="task-list-section"
+            aria-label="Task list"
+        >
+
+            <!-- Empty State -->
+            <p
+                id="emptyMessage"
+                aria-live="polite"
+            >
+                No tasks found. Add a new task!
+            </p>
+
+
+            <!-- Tasks -->
+            <ul id="taskList">
+
+                <!-- JavaScript adds tasks here -->
+
+            </ul>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="app-footer">
+
+            <p>
+                Manage your daily tasks easily.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+/* =========================
+   1. CSS VARIABLES
+========================= */
+
+:root {
+    --primary-color: #4CAF50;
+    --danger-color: #f44336;
+    --edit-color: orange;
+
+    --body-bg: #f4f4f4;
+    --container-bg: #ffffff;
+    --task-bg: #f9f9f9;
+    --stat-bg: #f1f1f1;
+
+    --text-color: #222;
+    --secondary-text: #666;
+
+    --border-color: #ccc;
+
+    --radius-small: 6px;
+    --radius-medium: 12px;
+
+    --spacing-small: 10px;
+    --spacing-medium: 20px;
+    --spacing-large: 30px;
+
+    --transition: 0.3s;
+}
+
+
+/* =========================
+   2. RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   3. BASE STYLES
+========================= */
+
+body {
+    font-family: Arial, sans-serif;
+
+    background-color: var(--body-bg);
+    color: var(--text-color);
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =========================
+   4. MAIN APPLICATION
+========================= */
+
+.app-container {
+    width: 100%;
+    max-width: 700px;
+
+    background-color: var(--container-bg);
+
+    padding: var(--spacing-large);
+
+    border-radius: var(--radius-medium);
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.1);
+
+    transition:
+        background-color var(--transition);
+}
+
+
+/* =========================
+   5. HEADER
+========================= */
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: var(--spacing-medium);
+
+    margin-bottom: 25px;
+}
+
+
+.app-header h1 {
+    font-size: 30px;
+}
+
+
+/* =========================
+   6. BUTTONS
+========================= */
+
+button {
+    padding: 10px 15px;
+
+    border: none;
+
+    border-radius: var(--radius-small);
+
+    cursor: pointer;
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition);
+}
+
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* Theme Button */
+
+#themeToggle {
+    background-color: #333;
+    color: white;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   7. TASK FORM
+========================= */
+
+#taskForm {
+    display: flex;
+
+    gap: var(--spacing-small);
+}
+
+
+#taskInput {
+    flex: 1;
+
+    padding: 12px;
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        var(--radius-small);
+}
+
+
+#taskInput:focus {
+    outline: none;
+
+    border-color:
+        var(--primary-color);
+}
+
+
+#taskForm button {
+    background-color:
+        var(--primary-color);
+
+    color: white;
+}
+
+
+/* =========================
+   8. VALIDATION MESSAGE
+========================= */
+
+#errorMessage {
+    color: var(--danger-color);
+
+    font-size: 14px;
+
+    margin-top: 8px;
+
+    min-height: 20px;
+}
+
+
+/* =========================
+   9. TASK STATISTICS
+========================= */
+
+.task-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: var(--spacing-small);
+
+    margin:
+        var(--spacing-medium) 0;
+}
+
+
+.stat-box {
+    text-align: center;
+
+    background-color:
+        var(--stat-bg);
+
+    padding: 15px;
+
+    border-radius:
+        var(--radius-medium);
+}
+
+
+.stat-box span {
+    display: block;
+
+    font-size: 14px;
+
+    color:
+        var(--secondary-text);
+}
+
+
+.stat-box strong {
+    font-size: 22px;
+}
+
+
+/* =========================
+   10. FILTER BUTTONS
+========================= */
+
+.filters {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: var(--spacing-small);
+
+    margin-bottom:
+        var(--spacing-medium);
+}
+
+
+.filter-btn {
+    background-color: #ddd;
+
+    color: var(--text-color);
+}
+
+
+.filter-btn.active {
+    background-color: #333;
+
+    color: white;
+}
+
+
+/* =========================
+   11. TASK LIST
+========================= */
+
+#taskList {
+    list-style: none;
+}
+
+
+.task-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--spacing-small);
+
+    padding: 12px;
+
+    margin-bottom:
+        var(--spacing-small);
+
+    background-color:
+        var(--task-bg);
+
+    border-left:
+        4px solid var(--primary-color);
+
+    border-radius:
+        var(--radius-small);
+}
+
+
+/* Task Text */
+
+.task-text {
+    flex: 1;
+
+    font-size: 16px;
+
+    word-break: break-word;
+}
+
+
+/* Completed Task */
+
+.completed .task-text {
+    text-decoration: line-through;
+
+    color: gray;
+}
+
+
+/* Task Actions */
+
+.task-actions {
+    display: flex;
+
+    gap: 5px;
+}
+
+
+.edit-btn {
+    background-color:
+        var(--edit-color);
+
+    color: white;
+}
+
+
+.delete-btn {
+    background-color:
+        var(--danger-color);
+
+    color: white;
+}
+
+
+/* =========================
+   12. EMPTY STATE
+========================= */
+
+#emptyMessage {
+    display: none;
+
+    padding: 30px 10px;
+
+    text-align: center;
+
+    color:
+        var(--secondary-text);
+}
+
+
+/* =========================
+   13. FOOTER
+========================= */
+
+.app-footer {
+    margin-top:
+        var(--spacing-large);
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color:
+        var(--secondary-text);
+}
+
+
+/* =========================
+   14. ACCESSIBILITY
+========================= */
+
+.sr-only {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip:
+        rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* =========================
+   15. DARK MODE
+========================= */
+
+body.dark-mode {
+    --body-bg: #121212;
+
+    --container-bg: #1e1e1e;
+
+    --task-bg: #2b2b2b;
+
+    --stat-bg: #2b2b2b;
+
+    --text-color: #ffffff;
+
+    --secondary-text: #cccccc;
+
+    --border-color: #555;
+}
+
+
+body.dark-mode #themeToggle {
+    background-color: #4CAF50;
+}
+
+
+body.dark-mode #taskInput {
+    background-color: #2b2b2b;
+
+    color: white;
+}
+
+
+body.dark-mode .filter-btn {
+    background-color: #444;
+
+    color: white;
+}
+
+
+body.dark-mode .filter-btn.active {
+    background-color:
+        var(--primary-color);
+}
+
+
+/* =========================
+   16. TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 30px 15px;
+    }
+
+
+    .app-container {
+        max-width: 600px;
+
+        padding: 25px;
+    }
+
+
+    .app-header h1 {
+        font-size: 26px;
+    }
+
+}
+
+
+/* =========================
+   17. MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+
+    .app-container {
+        padding: var(--spacing-medium);
+    }
+
+
+    /* Header */
+
+    .app-header {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    #themeToggle {
+        width: 100%;
+    }
+
+
+    /* Form */
+
+    #taskForm {
+        flex-direction: column;
+    }
+
+
+    #taskForm button {
+        width: 100%;
+    }
+
+
+    /* Statistics */
+
+    .task-stats {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Task */
+
+    .task-item {
+        flex-wrap: wrap;
+    }
+
+
+    .task-actions {
+        width: 100%;
+
+        justify-content: flex-end;
+    }
+
+
+    .edit-btn,
+    .delete-btn {
+        flex: 1;
+    }
+
+}
