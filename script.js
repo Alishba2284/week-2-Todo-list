@@ -1,221 +1,96 @@
-// ==============================
-// GET HTML ELEMENTS
-// ==============================
+// =========================
+// SELECT HTML ELEMENTS
+// =========================
 
 const taskForm = document.getElementById("taskForm");
-
 const taskInput = document.getElementById("taskInput");
-
 const taskList = document.getElementById("taskList");
 
 const errorMessage = document.getElementById("errorMessage");
-
 const emptyMessage = document.getElementById("emptyMessage");
 
 const totalTasks = document.getElementById("totalTasks");
-
 const completedTasks = document.getElementById("completedTasks");
-
 const pendingTasks = document.getElementById("pendingTasks");
-
-const filterButtons = document.querySelectorAll(".filter-btn");
 
 const themeToggle = document.getElementById("themeToggle");
 
+const filterButtons = document.querySelectorAll(".filter-btn");
 
-// ==============================
+
+// =========================
 // LOAD TASKS FROM LOCALSTORAGE
-// ==============================
+// =========================
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-
-// Default filter
 
 let currentFilter = "all";
 
 
-// ==============================
-// LOAD SAVED THEME
-// ==============================
-
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-
-    document.body.classList.add("dark-mode");
-
-    themeToggle.textContent = "☀️ Light Mode";
-
-}
-
-
-// ==============================
-// ADD NEW TASK
-// ==============================
-
-taskForm.addEventListener("submit", function (event) {
-
-    // Prevent page refresh
-
-    event.preventDefault();
-
-
-    // Get task text
-
-    const taskText = taskInput.value.trim();
-
-
-    // Validate empty task
-
-    if (taskText === "") {
-
-        errorMessage.textContent =
-            "Please enter a task before adding.";
-
-        return;
-
-    }
-
-
-    // Clear error message
-
-    errorMessage.textContent = "";
-
-
-    // Create new task
-
-    const newTask = {
-
-        id: Date.now(),
-
-        text: taskText,
-
-        completed: false
-
-    };
-
-
-    // Add task
-
-    tasks.push(newTask);
-
-
-    // Save tasks
-
-    saveTasks();
-
-
-    // Clear input
-
-    taskInput.value = "";
-
-
-    // Display tasks
-
-    renderTasks();
-
-});
-
-
-// ==============================
+// =========================
 // SAVE TASKS
-// ==============================
+// =========================
 
 function saveTasks() {
-
     localStorage.setItem(
         "tasks",
         JSON.stringify(tasks)
     );
-
 }
 
 
-// ==============================
-// DISPLAY TASKS
-// ==============================
+// =========================
+// RENDER TASKS
+// =========================
 
 function renderTasks() {
 
-
-    // Clear task list
-
     taskList.innerHTML = "";
-
-
-    // Start with all tasks
 
     let filteredTasks = tasks;
 
 
-    // Pending filter
+    // Filter Tasks
 
     if (currentFilter === "pending") {
 
         filteredTasks = tasks.filter(function (task) {
-
             return task.completed === false;
-
         });
 
-    }
-
-
-    // Completed filter
-
-    if (currentFilter === "completed") {
+    } else if (currentFilter === "completed") {
 
         filteredTasks = tasks.filter(function (task) {
-
             return task.completed === true;
-
         });
 
     }
 
 
-    // ==============================
-    // EMPTY STATE
-    // ==============================
+    // Empty Message
 
     if (filteredTasks.length === 0) {
-
         emptyMessage.style.display = "block";
-
     } else {
-
         emptyMessage.style.display = "none";
-
     }
 
 
-    // ==============================
-    // CREATE TASK ITEMS
-    // ==============================
+    // Create Task Elements
 
     filteredTasks.forEach(function (task) {
-
-
-        // Create task item
 
         const li = document.createElement("li");
 
         li.classList.add("task-item");
 
 
-        // Add completed class
-
-        if (task.completed === true) {
-
+        if (task.completed) {
             li.classList.add("completed");
-
         }
 
 
-        // ==============================
-        // CHECKBOX
-        // ==============================
+        // Checkbox
 
         const checkbox = document.createElement("input");
 
@@ -232,12 +107,12 @@ function renderTasks() {
 
             renderTasks();
 
+            updateTaskStats();
+
         });
 
 
-        // ==============================
-        // TASK TEXT
-        // ==============================
+        // Task Text
 
         const taskText = document.createElement("span");
 
@@ -246,16 +121,14 @@ function renderTasks() {
         taskText.textContent = task.text;
 
 
-        // ==============================
-        // ACTION BUTTONS
-        // ==============================
+        // Actions Container
 
         const actions = document.createElement("div");
 
         actions.classList.add("task-actions");
 
 
-        // Edit button
+        // Edit Button
 
         const editButton = document.createElement("button");
 
@@ -266,18 +139,18 @@ function renderTasks() {
 
         editButton.addEventListener("click", function () {
 
-            const updatedTask = prompt(
+            const newText = prompt(
                 "Edit your task:",
                 task.text
             );
 
 
             if (
-                updatedTask !== null &&
-                updatedTask.trim() !== ""
+                newText !== null &&
+                newText.trim() !== ""
             ) {
 
-                task.text = updatedTask.trim();
+                task.text = newText.trim();
 
                 saveTasks();
 
@@ -288,7 +161,7 @@ function renderTasks() {
         });
 
 
-        // Delete button
+        // Delete Button
 
         const deleteButton = document.createElement("button");
 
@@ -300,26 +173,26 @@ function renderTasks() {
         deleteButton.addEventListener("click", function () {
 
             tasks = tasks.filter(function (item) {
-
                 return item.id !== task.id;
-
             });
 
             saveTasks();
 
             renderTasks();
 
+            updateTaskStats();
+
         });
 
 
-        // Add buttons
+        // Add Buttons
 
         actions.appendChild(editButton);
 
         actions.appendChild(deleteButton);
 
 
-        // Add elements
+        // Add Everything to Task
 
         li.appendChild(checkbox);
 
@@ -328,40 +201,38 @@ function renderTasks() {
         li.appendChild(actions);
 
 
-        // Add task to list
+        // Add Task to List
 
         taskList.appendChild(li);
 
     });
 
-
-    // Update statistics
-
-    updateTaskStats();
-
 }
 
 
-// ==============================
+// =========================
 // UPDATE TASK STATISTICS
-// ==============================
+// =========================
 
 function updateTaskStats() {
 
-    const total = tasks.length;
+    // Use map()
+
+    const taskStatus = tasks.map(function (task) {
+        return task.completed;
+    });
 
 
-    const completed = tasks.filter(function (task) {
+    const total = taskStatus.length;
 
-        return task.completed === true;
 
+    const completed = taskStatus.filter(function (status) {
+        return status === true;
     }).length;
 
 
-    const pending = tasks.filter(function (task) {
-
-        return task.completed === false;
-
+    const pending = taskStatus.filter(function (status) {
+        return status === false;
     }).length;
 
 
@@ -374,15 +245,85 @@ function updateTaskStats() {
 }
 
 
-// ==============================
+// =========================
+// ADD NEW TASK
+// =========================
+
+taskForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+
+    const taskText = taskInput.value.trim();
+
+
+    // Validation
+
+    if (taskText === "") {
+
+        errorMessage.textContent =
+            "Please enter a task!";
+
+        return;
+
+    }
+
+
+    // Clear Error Message
+
+    errorMessage.textContent = "";
+
+
+    // Create New Task Object
+
+    const newTask = {
+
+        id: Date.now(),
+
+        text: taskText,
+
+        completed: false
+
+    };
+
+
+    // Add Task to Array
+
+    tasks.push(newTask);
+
+
+    // Save Tasks
+
+    saveTasks();
+
+
+    // Update Display
+
+    renderTasks();
+
+    updateTaskStats();
+
+
+    // Clear Input
+
+    taskInput.value = "";
+
+});
+
+
+// =========================
 // FILTER TASKS
-// ==============================
+// =========================
 
 filterButtons.forEach(function (button) {
 
     button.addEventListener("click", function () {
 
-        // Remove active class
+        currentFilter =
+            button.dataset.filter;
+
+
+        // Remove Active Class
 
         filterButtons.forEach(function (btn) {
 
@@ -391,17 +332,10 @@ filterButtons.forEach(function (button) {
         });
 
 
-        // Add active class
+        // Add Active Class
 
         button.classList.add("active");
 
-
-        // Change filter
-
-        currentFilter = button.dataset.filter;
-
-
-        // Display tasks
 
         renderTasks();
 
@@ -410,44 +344,68 @@ filterButtons.forEach(function (button) {
 });
 
 
-// ==============================
+// =========================
 // DARK / LIGHT MODE
-// ==============================
+// =========================
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem("theme");
+
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark-mode");
+
+        themeToggle.textContent =
+            "☀️ Light Mode";
+
+    }
+
+}
+
 
 themeToggle.addEventListener("click", function () {
 
     document.body.classList.toggle("dark-mode");
 
 
-    // Check current theme
+    if (
+        document.body.classList.contains(
+            "dark-mode"
+        )
+    ) {
 
-    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem(
+            "theme",
+            "dark"
+        );
 
-        // Save dark theme
-
-        localStorage.setItem("theme", "dark");
-
-        // Change button text
-
-        themeToggle.textContent = "☀️ Light Mode";
+        themeToggle.textContent =
+            "☀️ Light Mode";
 
     } else {
 
-        // Save light theme
+        localStorage.setItem(
+            "theme",
+            "light"
+        );
 
-        localStorage.setItem("theme", "light");
-
-        // Change button text
-
-        themeToggle.textContent = "🌙 Dark Mode";
+        themeToggle.textContent =
+            "🌙 Dark Mode";
 
     }
 
 });
 
 
-// ==============================
-// INITIAL DISPLAY
-// ==============================
+// =========================
+// INITIALIZE APPLICATION
+// =========================
+
+loadTheme();
 
 renderTasks();
+
+updateTaskStats();

@@ -4,10 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dynamic To-Do List</title>
 
@@ -16,7 +13,6 @@
 
 <body>
 
-    <!-- Main Application Container -->
     <main class="app-container">
 
         <!-- Header -->
@@ -24,28 +20,19 @@
 
             <h1>My To-Do List</h1>
 
-            <button
-                id="themeToggle"
-                type="button"
-            >
+            <button id="themeToggle" type="button">
                 🌙 Dark Mode
             </button>
 
         </header>
 
 
-        <!-- Add Task Section -->
-        <section
-            class="task-form-section"
-            aria-label="Add a new task"
-        >
+        <!-- Add Task -->
+        <section class="task-form-section">
 
             <form id="taskForm">
 
-                <label
-                    for="taskInput"
-                    class="sr-only"
-                >
+                <label for="taskInput" class="sr-only">
                     Enter a new task
                 </label>
 
@@ -61,53 +48,29 @@
 
             </form>
 
-            <!-- Validation Message -->
-            <p
-                id="errorMessage"
-                aria-live="polite"
-            ></p>
+            <p id="errorMessage"></p>
 
         </section>
 
 
         <!-- Task Statistics -->
-        <section
-            class="statistics-section"
-            aria-label="Task statistics"
-        >
+        <section class="statistics-section">
 
             <div class="task-stats">
 
                 <article class="stat-box">
-
                     <span>Total</span>
-
-                    <strong id="totalTasks">
-                        0
-                    </strong>
-
+                    <strong id="totalTasks">0</strong>
                 </article>
 
-
                 <article class="stat-box">
-
                     <span>Completed</span>
-
-                    <strong id="completedTasks">
-                        0
-                    </strong>
-
+                    <strong id="completedTasks">0</strong>
                 </article>
 
-
                 <article class="stat-box">
-
                     <span>Pending</span>
-
-                    <strong id="pendingTasks">
-                        0
-                    </strong>
-
+                    <strong id="pendingTasks">0</strong>
                 </article>
 
             </div>
@@ -115,11 +78,8 @@
         </section>
 
 
-        <!-- Filter Section -->
-        <section
-            class="filter-section"
-            aria-label="Filter tasks"
-        >
+        <!-- Filters -->
+        <section class="filter-section">
 
             <div class="filters">
 
@@ -152,27 +112,14 @@
         </section>
 
 
-        <!-- Task List Section -->
-        <section
-            class="task-list-section"
-            aria-label="Task list"
-        >
+        <!-- Task List -->
+        <section class="task-list-section">
 
-            <!-- Empty State -->
-            <p
-                id="emptyMessage"
-                aria-live="polite"
-            >
+            <p id="emptyMessage">
                 No tasks found. Add a new task!
             </p>
 
-
-            <!-- Tasks -->
-            <ul id="taskList">
-
-                <!-- JavaScript adds tasks here -->
-
-            </ul>
+            <ul id="taskList"></ul>
 
         </section>
 
@@ -180,14 +127,11 @@
         <!-- Footer -->
         <footer class="app-footer">
 
-            <p>
-                Manage your daily tasks easily.
-            </p>
+            <p>Manage your daily tasks easily.</p>
 
         </footer>
 
     </main>
-
 
     <script src="script.js"></script>
 

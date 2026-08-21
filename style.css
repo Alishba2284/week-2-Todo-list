@@ -3,22 +3,20 @@
 ========================= */
 
 :root {
-    --primary-color: #4CAF50;
-    --danger-color: #f44336;
-    --edit-color: orange;
+    --primary-color: #7c3aed;
+    --danger-color: #ef4444;
+    --edit-color: #f59e0b;
 
-    --body-bg: #f4f4f4;
-    --container-bg: #ffffff;
-    --task-bg: #f9f9f9;
-    --stat-bg: #f1f1f1;
+    --container-bg: rgba(255, 255, 255, 0.90);
+    --task-bg: rgba(255, 255, 255, 0.85);
+    --stat-bg: rgba(255, 255, 255, 0.70);
 
-    --text-color: #222;
-    --secondary-text: #666;
+    --text-color: #2d1b3d;
+    --secondary-text: #6b5b75;
+    --border-color: #d8c7e8;
 
-    --border-color: #ccc;
-
-    --radius-small: 6px;
-    --radius-medium: 12px;
+    --radius-small: 8px;
+    --radius-medium: 18px;
 
     --spacing-small: 10px;
     --spacing-medium: 20px;
@@ -35,19 +33,16 @@
 * {
     margin: 0;
     padding: 0;
-
     box-sizing: border-box;
 }
 
 
 /* =========================
-   3. BASE STYLES
+   3. BODY & GRADIENT BACKGROUND
 ========================= */
 
 body {
     font-family: Arial, sans-serif;
-
-    background-color: var(--body-bg);
     color: var(--text-color);
 
     min-height: 100vh;
@@ -57,11 +52,24 @@ body {
 
     padding: 40px 20px;
 
-    transition:
-        background-color var(--transition),
-        color var(--transition);
+    /* GRADIENT BACKGROUND ONLY */
+
+    background: linear-gradient(
+        135deg,
+        #c4b5fd,
+        #f9a8d4,
+        #bfdbfe
+    );
+
+    background-size: cover;
+
+    background-repeat: no-repeat;
 }
 
+
+/* =========================
+   4. BASE ELEMENTS
+========================= */
 
 button,
 input {
@@ -69,8 +77,32 @@ input {
 }
 
 
+button {
+    border: none;
+    border-radius: var(--radius-small);
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition);
+}
+
+
+button:hover {
+    opacity: 0.85;
+}
+
+
+button:active {
+    transform: scale(0.98);
+}
+
+
 /* =========================
-   4. MAIN APPLICATION
+   5. MAIN APPLICATION
 ========================= */
 
 .app-container {
@@ -84,7 +116,9 @@ input {
     border-radius: var(--radius-medium);
 
     box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.1);
+        0 8px 30px rgba(76, 29, 149, 0.30);
+
+    backdrop-filter: blur(6px);
 
     transition:
         background-color var(--transition);
@@ -92,11 +126,12 @@ input {
 
 
 /* =========================
-   5. HEADER
+   6. HEADER
 ========================= */
 
 .app-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
@@ -112,38 +147,16 @@ input {
 
 
 /* =========================
-   6. BUTTONS
+   7. THEME BUTTON
 ========================= */
 
-button {
-    padding: 10px 15px;
-
-    border: none;
-
-    border-radius: var(--radius-small);
-
-    cursor: pointer;
-
-    transition:
-        opacity var(--transition),
-        transform var(--transition);
-}
-
-
-button:hover {
-    opacity: 0.8;
-}
-
-
-button:active {
-    transform: scale(0.98);
-}
-
-
-/* Theme Button */
-
 #themeToggle {
-    background-color: #333;
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #db2777
+    );
+
     color: white;
 
     white-space: nowrap;
@@ -151,7 +164,7 @@ button:active {
 
 
 /* =========================
-   7. TASK FORM
+   8. TASK FORM
 ========================= */
 
 #taskForm {
@@ -166,32 +179,35 @@ button:active {
 
     padding: 12px;
 
-    border:
-        1px solid var(--border-color);
+    border: 1px solid var(--border-color);
 
-    border-radius:
-        var(--radius-small);
+    border-radius: var(--radius-small);
+
+    outline: none;
 }
 
 
 #taskInput:focus {
-    outline: none;
+    border-color: var(--primary-color);
 
-    border-color:
-        var(--primary-color);
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 
 #taskForm button {
-    background-color:
-        var(--primary-color);
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #a855f7
+    );
 
     color: white;
 }
 
 
 /* =========================
-   8. VALIDATION MESSAGE
+   9. ERROR MESSAGE
 ========================= */
 
 #errorMessage {
@@ -206,32 +222,31 @@ button:active {
 
 
 /* =========================
-   9. TASK STATISTICS
+   10. TASK STATISTICS
 ========================= */
 
 .task-stats {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 
     gap: var(--spacing-small);
 
-    margin:
-        var(--spacing-medium) 0;
+    margin: var(--spacing-medium) 0;
 }
 
 
 .stat-box {
     text-align: center;
 
-    background-color:
-        var(--stat-bg);
+    background-color: var(--stat-bg);
 
     padding: 15px;
 
-    border-radius:
-        var(--radius-medium);
+    border-radius: var(--radius-medium);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -240,50 +255,53 @@ button:active {
 
     font-size: 14px;
 
-    color:
-        var(--secondary-text);
+    color: var(--secondary-text);
 }
 
 
 .stat-box strong {
     font-size: 22px;
+
+    color: var(--primary-color);
 }
 
 
 /* =========================
-   10. FILTER BUTTONS
+   11. FILTERS
 ========================= */
 
 .filters {
     display: flex;
 
     justify-content: center;
-
     flex-wrap: wrap;
 
     gap: var(--spacing-small);
 
-    margin-bottom:
-        var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
 }
 
 
 .filter-btn {
-    background-color: #ddd;
+    background-color: rgba(255, 255, 255, 0.75);
 
     color: var(--text-color);
 }
 
 
 .filter-btn.active {
-    background-color: #333;
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #db2777
+    );
 
     color: white;
 }
 
 
 /* =========================
-   11. TASK LIST
+   12. TASK LIST
 ========================= */
 
 #taskList {
@@ -300,21 +318,18 @@ button:active {
 
     padding: 12px;
 
-    margin-bottom:
-        var(--spacing-small);
+    margin-bottom: var(--spacing-small);
 
-    background-color:
-        var(--task-bg);
+    background-color: var(--task-bg);
 
-    border-left:
-        4px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
 
-    border-radius:
-        var(--radius-small);
+    border-radius: var(--radius-small);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
-
-/* Task Text */
 
 .task-text {
     flex: 1;
@@ -325,8 +340,6 @@ button:active {
 }
 
 
-/* Completed Task */
-
 .completed .task-text {
     text-decoration: line-through;
 
@@ -334,7 +347,9 @@ button:active {
 }
 
 
-/* Task Actions */
+/* =========================
+   13. TASK BUTTONS
+========================= */
 
 .task-actions {
     display: flex;
@@ -344,23 +359,21 @@ button:active {
 
 
 .edit-btn {
-    background-color:
-        var(--edit-color);
+    background-color: var(--edit-color);
 
     color: white;
 }
 
 
 .delete-btn {
-    background-color:
-        var(--danger-color);
+    background-color: var(--danger-color);
 
     color: white;
 }
 
 
 /* =========================
-   12. EMPTY STATE
+   14. EMPTY MESSAGE
 ========================= */
 
 #emptyMessage {
@@ -370,30 +383,27 @@ button:active {
 
     text-align: center;
 
-    color:
-        var(--secondary-text);
+    color: var(--secondary-text);
 }
 
 
 /* =========================
-   13. FOOTER
+   15. FOOTER
 ========================= */
 
 .app-footer {
-    margin-top:
-        var(--spacing-large);
+    margin-top: var(--spacing-large);
 
     text-align: center;
 
     font-size: 14px;
 
-    color:
-        var(--secondary-text);
+    color: var(--secondary-text);
 }
 
 
 /* =========================
-   14. ACCESSIBILITY
+   16. ACCESSIBILITY
 ========================= */
 
 .sr-only {
@@ -407,8 +417,7 @@ button:active {
 
     overflow: hidden;
 
-    clip:
-        rect(0, 0, 0, 0);
+    clip: rect(0, 0, 0, 0);
 
     white-space: nowrap;
 
@@ -417,53 +426,67 @@ button:active {
 
 
 /* =========================
-   15. DARK MODE
+   17. DARK MODE
 ========================= */
 
 body.dark-mode {
-    --body-bg: #121212;
+    --container-bg: rgba(30, 20, 40, 0.93);
 
-    --container-bg: #1e1e1e;
+    --task-bg: rgba(55, 40, 70, 0.90);
 
-    --task-bg: #2b2b2b;
-
-    --stat-bg: #2b2b2b;
+    --stat-bg: rgba(65, 45, 80, 0.85);
 
     --text-color: #ffffff;
 
-    --secondary-text: #cccccc;
+    --secondary-text: #d8c7e8;
 
-    --border-color: #555;
+    --border-color: #765a8f;
+
+    /* DARK GRADIENT */
+
+    background: linear-gradient(
+        135deg,
+        #1e1b4b,
+        #3b0764,
+        #4c0519
+    );
 }
 
 
 body.dark-mode #themeToggle {
-    background-color: #4CAF50;
+    background: linear-gradient(
+        135deg,
+        #f59e0b,
+        #ec4899
+    );
 }
 
 
 body.dark-mode #taskInput {
-    background-color: #2b2b2b;
+    background-color: #2b2035;
 
     color: white;
 }
 
 
 body.dark-mode .filter-btn {
-    background-color: #444;
+    background-color: #44304f;
 
     color: white;
 }
 
 
 body.dark-mode .filter-btn.active {
-    background-color:
-        var(--primary-color);
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #db2777
+    );
 }
 
 
 /* =========================
-   16. TABLET
+   18. TABLET
 ========================= */
 
 @media (max-width: 768px) {
@@ -488,7 +511,7 @@ body.dark-mode .filter-btn.active {
 
 
 /* =========================
-   17. MOBILE
+   19. MOBILE
 ========================= */
 
 @media (max-width: 500px) {
@@ -503,8 +526,6 @@ body.dark-mode .filter-btn.active {
     }
 
 
-    /* Header */
-
     .app-header {
         flex-direction: column;
 
@@ -517,8 +538,6 @@ body.dark-mode .filter-btn.active {
     }
 
 
-    /* Form */
-
     #taskForm {
         flex-direction: column;
     }
@@ -529,14 +548,10 @@ body.dark-mode .filter-btn.active {
     }
 
 
-    /* Statistics */
-
     .task-stats {
         grid-template-columns: 1fr;
     }
 
-
-    /* Task */
 
     .task-item {
         flex-wrap: wrap;
